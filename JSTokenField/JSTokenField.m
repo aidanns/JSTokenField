@@ -83,12 +83,12 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 
 - (void)commonSetup {
     CGRect frame = self.frame;
-    [self setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]];
+    [self setBackgroundColor:[UIColor clearColor]];
     
     _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, frame.size.height)];
     [_label setBackgroundColor:[UIColor clearColor]];
     [_label setTextColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0]];
-    [_label setFont:[UIFont fontWithName:@"Helvetica Neue" size:17.0]];
+    [_label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18.0]];
     
     [self addSubview:_label];
     
@@ -106,6 +106,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
     frame.origin.y += HEIGHT_PADDING;
     frame.size.height -= HEIGHT_PADDING * 2;
     _textField = [[UITextField alloc] initWithFrame:frame];
+    [_textField setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f]];
     [_textField setDelegate:self];
     [_textField setBorderStyle:UITextBorderStyleNone];
     [_textField setBackground:nil];
@@ -225,9 +226,10 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 	CGRect currentRect = CGRectZero;
 	
 	[_label sizeToFit];
-	[_label setFrame:CGRectMake(WIDTH_PADDING, HEIGHT_PADDING, [_label frame].size.width, [_label frame].size.height)];
+	[_label setFrame:CGRectMake(0, HEIGHT_PADDING, [_label frame].size.width, [_label frame].size.height)];
 	
-	currentRect.origin.x += _label.frame.size.width + _label.frame.origin.x + WIDTH_PADDING;
+//	currentRect.origin.x += _label.frame.size.width + _label.frame.origin.x + WIDTH_PADDING;
+    currentRect.origin.x = 109.0f;
 	
 	for (UIButton *token in _tokens)
 	{
@@ -405,6 +407,13 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 			[token setToggled:NO];
 		}
 	}
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if ([self.delegate respondsToSelector:@selector(tokenFieldDidBeginEditing:)]) {
+        [self.delegate tokenFieldDidBeginEditing:self];
+        return;
+    }
 }
 
 @end
