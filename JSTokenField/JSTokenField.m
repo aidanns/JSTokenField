@@ -29,6 +29,7 @@
 #import "JSTokenField.h"
 #import "JSTokenButton.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Logging.h"
 
 NSString *const JSTokenFieldFrameDidChangeNotification = @"JSTokenFieldFrameDidChangeNotification";
 NSString *const JSTokenFieldNewFrameKey = @"JSTokenFieldNewFrameKey";
@@ -320,6 +321,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 	{
 		[text insertString:ZERO_WIDTH_SPACE_STRING atIndex:0];
 		[_textField setText:text];
+        LogDebug(@"Setting text to nothing.");
 	}
 }
 
@@ -365,11 +367,12 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 	}
 	
 	// if attempting to enter text before the intial space, disallow it, and move cursor to the end (all we can do)
-	if (range.location == 0 && range.length == 0)
-	{
-		[_textField setText:[_textField text]];
-		return NO;
-	}
+//	if (range.location == 0 && range.length == 0)
+//	{
+//		[_textField setText:[_textField text]];
+//        LogDebug(@"Deleting and not allowing change.");
+//		return NO;
+//	}
 	
 	return YES;
 }
