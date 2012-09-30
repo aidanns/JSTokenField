@@ -313,6 +313,13 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 #pragma mark -
 #pragma mark UITextFieldDelegate
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (textField == _textField) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)handleTextDidChange:(NSNotification *)note
 {
 	// ensure there's always a space at the beginning
@@ -417,6 +424,15 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
         [self.delegate tokenFieldDidBeginEditing:self];
         return;
     }
+}
+
+- (BOOL)resignFirstResponder {
+    for (JSTokenButton *token in _tokens) {
+        [token resignFirstResponder];
+    }
+    [_textField resignFirstResponder];
+    [_hiddenTextField resignFirstResponder];
+    return YES;
 }
 
 @end
