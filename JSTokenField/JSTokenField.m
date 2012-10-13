@@ -129,6 +129,8 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
                                              selector:@selector(handleTextDidChange:)
                                                  name:UITextFieldTextDidChangeNotification
                                                object:_hiddenTextField];
+    
+    self.clipsToBounds = NO;
 }
 
 - (void)dealloc
@@ -273,7 +275,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 	[_textField setFrame:textFieldFrame];
 	CGRect selfFrame = [self frame];
 	selfFrame.size.height = textFieldFrame.origin.y + textFieldFrame.size.height + HEIGHT_PADDING;
-	
+    
 	[UIView animateWithDuration:0.3
 					 animations:^{
 						 [self setFrame:selfFrame];
